@@ -35,7 +35,7 @@ COMMANDS = {
 ```
 ## But what do these variables mean?
 
-The `GREET` variable is is the welcome message. As shown in this image  ![image](https://user-images.githubusercontent.com/93856041/144713909-55406aae-12c5-4abc-96c4-41982bf75a88.png)        
+The `GREET` variable is is the welcome message. This line is the first line that is printed by the build system.               
        
 The `PROFILES` variable defines the list of your different profiles.       
       
