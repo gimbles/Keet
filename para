@@ -1,5 +1,13 @@
 #!/usr/bin/env ruby
 
+begin
+  config = File.open(".keet").read
+rescue
+  puts "No .keet file found."
+end
+
+eval(config)
+
 def execute_profile(profile)
   os = `uname -s`.strip
   profiles = PROFILES.map(&:downcase)
