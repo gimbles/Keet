@@ -35,10 +35,10 @@ COMMANDS = {
 ```
 ## But what do these variables mean?
 
-The `GREET` variable is is the welcome message. As shown in this image  ![image](https://user-images.githubusercontent.com/93856041/144713909-55406aae-12c5-4abc-96c4-41982bf75a88.png)
----
-The `PROFILES` variable defines the list of your different profiles.
----
+The `GREET` variable is is the welcome message. As shown in this image  ![image](https://user-images.githubusercontent.com/93856041/144713909-55406aae-12c5-4abc-96c4-41982bf75a88.png)        
+       
+The `PROFILES` variable defines the list of your different profiles.       
+      
 The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary.       
 **NOTE**: The key names of the profiles in the `COMMANDS` variable should **not** contain anything but lower case letters. This will be fixed soon.
 
@@ -47,7 +47,7 @@ The build system will look for a ".keet" file storing this configuration and eva
 
 ## Fantastic, but what if I want a fancy configuration that can't just be fit like this?
 Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Parakeet will simply evaluate the file and you can use all the fancy Ruby code you want.
----
+___
 
 # License
 This project is licensed under the MIT license.
