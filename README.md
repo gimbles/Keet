@@ -1,4 +1,4 @@
-# Parakeet
+# Keet
 ✨ A minimal, tiny and easy to use build system for Unix-like OSs made with <3 and Ruby!
 
 # Lovely! How do I add it to my project?
