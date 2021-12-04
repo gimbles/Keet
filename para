@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+
+GREET = "Welcome to the Zen build system"
+PROFILES = ["Debug", "Performance", "Production", "Format", "Clean"]
+COMMANDS = {
+  "debug" => {
+    "Darwin" => ["cargo build"],
+    "Linux" => ["cargo build"],
+  },
+  "performance" => {
+    "Darwin" => ["cargo build --release"],
+    "Linux" => ["cargo build --release"],
+  },
+  "production" => {
+    "Darwin" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu --release"],
+    "Linux" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu --release"],
+  },
+  "format" => {
+    "Darwin" => ["cargo fmt"],
+    "Linux" => ["cargo fmt"],
+  },
+  "clean" => {
+    "Darwin" => ["cargo clean"],
+    "Linux" => ["cargo clean"],
+  },
+}
+
+def execute_profile(profile)
+  os = `uname -s`.strip
+  profiles = PROFILES.map(&:downcase)
+
+  if profiles.include? profile
+    if COMMANDS[profile].has_key? os
+      COMMANDS[profile][os].each do |command|
+        puts "\n=> %s" % [command]
+        begin
+          cmd = system(command, exception: true)
+        rescue Exception => e
+          puts "\n\e[41m COMMAND FAILED \e[0m -> '#{e.message}'"
+          exit 1
+        end
+      end
+    else
+      puts "Unsupported platform"
+    end
+  else
+    puts "Invalid profile..."
+  end
+end
+
+if ARGV.length == 0
+  puts GREET
+  puts "What profile would you like to use?\n\n"
+  puts PROFILES
+
+  print "\nProfile -> "
+  profile = gets
+  profile = profile.downcase.strip
+  puts "Executing %s profile..." % [profile]
+  execute_profile profile
+else
+  execute_profile ARGV[0]
+end
