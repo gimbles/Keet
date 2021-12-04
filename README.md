@@ -40,7 +40,6 @@ The `GREET` variable is is the welcome message. This line is the first line that
 The `PROFILES` variable defines the list of your different profiles.       
       
 The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary.       
-**NOTE**: The key names of the profiles in the `COMMANDS` variable should **not** contain anything but lower case letters. This will be fixed soon.
 
 ## Coolio, where do I store this configuration?
 The build system will look for a ".keet" file storing this configuration and evaluate it accordingly. Place this file in the same position as parakeet.
