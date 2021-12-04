@@ -11,6 +11,7 @@ eval(config)
 def execute_profile(profile)
   os = `uname -s`.strip
   profiles = PROFILES.map(&:downcase)
+  commands = COMMANDS.map { |key, value| [key.downcase, value] }
 
   if profiles.include? profile
     if COMMANDS[profile].has_key? os
