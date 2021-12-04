@@ -16,7 +16,7 @@ def execute_profile(profile)
   if profiles.include? profile
     if COMMANDS[profile].has_key? os
       COMMANDS[profile][os].each do |command|
-        puts "\n=> %s" % [command]
+        puts "\n=> #{command}"
         begin
           cmd = system(command, exception: true)
         rescue Exception => e
@@ -35,13 +35,22 @@ end
 if ARGV.length == 0
   puts GREET
   puts "What profile would you like to use?\n\n"
-  puts PROFILES
+  PROFILES.each_with_index do |profile, index|
+    puts "#{index} -> #{profile}"
+  end
 
   print "\nProfile -> "
-  profile = gets
-  profile = profile.downcase.strip
-  puts "Executing %s profile..." % [profile]
-  execute_profile profile
+  profile = gets.strip
+
+  if /([A-Z])\w+/.match(profile) != ""
+    profile = PROFILES[profile.to_i].downcase
+    puts "Executing #{profile} profile..."
+    execute_profile profile
+  else
+    profile = profile.downcase
+    puts "Executing #{profile} profile..."
+    execute_profile profile
+  end
 else
   execute_profile ARGV[0]
 end
