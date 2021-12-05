@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 
 begin
-  config = File.open(".keet").read
+  config = File.open("KeetConf").read
 rescue
-  puts "No .keet file found."
+  puts "No KeetConf file found."
+  exit 1
 end
 
 eval(config)
