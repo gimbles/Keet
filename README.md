@@ -7,7 +7,7 @@ Using parakeet is really simple, you just clone the file and chuck it in your pr
 Here's a handy command to install it in your project! - `wget https://raw.githubusercontent.com/Yush08/Keet/main/keet` 
 
 # But, How do I configure it?
-Configuring parakeet doesn't require any knowledge of the Ruby language, even though it may seem like it at first. Here's an example!
+Configuring Keet doesn't require any knowledge of the Ruby language, even though it may seem like it at first. Here's an example!
 
 ```ruby
 GREET = "Welcome to the Zen build system"
