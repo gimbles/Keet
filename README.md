@@ -1,12 +1,12 @@
 # Keet
 ✨ A minimal, tiny and easy to use build system for Unix-like OSs made with <3 and Ruby!
 
-# Lovely! How do I add it to my project?
+# Installation
 Using Keet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added parakeet to your project :)      
       
 Here's a handy command to install it in your project! - `wget https://raw.githubusercontent.com/Yush08/Keet/main/keet` 
 
-# But, How do I configure it?
+# Configuration
 Configuring Keet doesn't require any knowledge of the Ruby language, even though it may seem like it at first. Here's an example!
 
 ```ruby
@@ -64,16 +64,14 @@ COMMANDS = {
 }
 
 ```
-## But what do these variables mean?
 
 The `GREET` variable is is the welcome message. This line is the first line that is printed by the build system.               
         
-The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary. Each profile holds a description and different operating systems. The operating system is fetched from `uname -s`. You may use regex as shown above in the example. Each operating system holds a list of commands to run.
-
-## Coolio, where do I store this configuration?
+The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary. Each profile holds a description and different operating systems. The operating system is fetched from `uname -s`. You may use regex as shown above in the example. Each operating system holds a list of commands to run.     
+     
 The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as parakeet.
 
-## Neat! But what if I have a *really* fancy config?
+## Fancy configuration
 Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Parakeet will simply evaluate the file and you can use all the fancy Ruby code you want.
 ___
 
