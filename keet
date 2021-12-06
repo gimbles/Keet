@@ -15,18 +15,18 @@ else
   puts "Invalid configuration."
 end
 
-commands = COMMANDS.transform_keys(&:downcase)
+CMDS = COMMANDS.transform_keys(&:downcase)
 
 def execute_profile(profile)
   platform = `uname -s`.strip
-  profiles = commands.keys
+  profiles = CMDS.keys
 
   if profiles.include? profile
-    commands[profile].keys.keys_each do |os|
+    CMDS[profile].keys.each do |os|
       next if os == 'description'
 
       if /#{os}/.match(platform)
-        commands[profile][os].each do |cmd|
+        CMDS[profile][os].each do |cmd|
           puts "=> #{cmd}\n"
           begin
             system(cmd, exception: true)
@@ -44,14 +44,14 @@ def execute_profile(profile)
 end
 
 if ARGV.length == 0
-  PROFILES = commands.keys
+  PROFILES = CMDS.keys
 
   puts GREET
   puts "What profile would you like to use?\n\n"
 
   longest = PROFILES.max_by(&:length).length + 2
   PROFILES.each_with_index do |profile, index|
-    puts "#{index} -> #{profile}#{" " * (longest - profile.length)}=> #{commands[profile]["description"]}"
+    puts "#{index} -> #{profile}#{" " * (longest - profile.length)}=> #{CMDS[profile]["description"]}"
   end
 
   print "\nProfile -> "
@@ -68,4 +68,10 @@ if ARGV.length == 0
   end
 else
   execute_profile ARGV[0]
+end
+
+
+trap "SIGINT" do
+  puts "Exiting"
+  exit 130
 end
