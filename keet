@@ -9,9 +9,10 @@ end
 
 eval(config)
 
-if defined? GREET == nil || defined? COMMANDS == nil
+if defined? GREET && defined? COMMANDS
+  puts "\e[102;30m OK! \e[0m Loaded configuration."
+else
   puts "Invalid configuration."
-  exit 1
 end
 
 commands = COMMANDS.transform_keys(&:downcase)
