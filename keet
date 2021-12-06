@@ -18,7 +18,7 @@ end
 
 # Cleanly exiting on a SIGINT (Ctrl + C)
 trap "SIGINT" do
-  puts "\n\n\e[41m SIGINT \e[0m - Goodbye! 👋"
+  puts "\n\n\e[41;30m SIGINT \e[0m - Goodbye! 👋"
 
   # Optional function that may exist in the configuration.
   if defined? ON_SIGINT
@@ -52,7 +52,7 @@ def execute_profile(profile)
             begin
               system(cmd, exception: true)
             rescue StandardError => e
-              e.message['Command failed'] = "\e[41m COMMAND FAILED \e[0m"
+              e.message['Command failed'] = "\e[41;30m COMMAND FAILED \e[0m"
               puts "\n#{e.message}"
               exit 1
             end
@@ -82,11 +82,11 @@ if ARGV.length == 0
   begin
     profile = gets.strip
   rescue
-    puts "\n\e[41m ERR! \e[0m - Failed to get user input."
+    puts "\n\e[41;30m ERR! \e[0m - Failed to get user input."
     exit
   end
   
-  if /([A-Z])\w+/.match(profile) != ""
+  if /\d/ =~ profile
     profile = PROFILES[profile.to_i].downcase
     puts "Executing #{profile} profile..."
     execute_profile profile
