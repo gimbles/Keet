@@ -9,8 +9,9 @@ end
 
 eval(config)
 
-if !defined? GREET || !defined? COMMANDS
+if defined? GREET == nil || !defined? COMMANDS == nil
   puts "Invalid configuration."
+  exit 1
 end
 
 commands = COMMANDS.transform_keys(&:downcase)
