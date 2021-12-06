@@ -9,6 +9,10 @@ end
 
 eval(config)
 
+if !defined? GREET || !defined? COMMANDS
+  puts "Invalid configuration."
+end
+
 commands = COMMANDS.transform_keys(&:downcase)
 
 def execute_profile(profile)
@@ -41,14 +45,14 @@ if ARGV.length == 0
   PROFILES = commands.keys
 
   puts GREET
-  puts 'What profile would you like to use?\n\n'
+  puts "What profile would you like to use?\n\n"
 
   longest = PROFILES.max_by(&:length).length + 2
   PROFILES.each_with_index do |profile, index|
     puts "#{index} -> #{profile}#{" " * (longest - profile.length)}=> #{commands[profile]["description"]}"
   end
 
-  print '\nProfile -> '
+  print "\nProfile -> "
   profile = gets.strip
 
   if /([A-Z])\w+/.match(profile) != ""
