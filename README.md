@@ -1,5 +1,5 @@
-[![asciicast](https://asciinema.org/a/XJqpbsq4KeSYyIM6c0hOfLKyS.svg)](https://asciinema.org/a/XJqpbsq4KeSYyIM6c0hOfLKyS)
-# Keet
+[![Header](header.svg)](https://github.com/Yush08/Keet/)
+# Keet!
 ✨ A minimal, tiny and easy to use build system for Unix-like OSs made with <3 and Ruby!
 
 # Installation
