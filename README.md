@@ -4,7 +4,10 @@
 # Installation
 Using Keet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added parakeet to your project :)      
       
-Here's a handy command to install it in your project! - `wget https://raw.githubusercontent.com/Yush08/Keet/main/keet` 
+Here's a handy command to install it in your project! - 
+```sh
+wget https://git.io/AddKeet
+``` 
 
 # Configuration
 Configuring Keet doesn't require any knowledge of the Ruby language, even though it may seem like it at first. Here's an example!
