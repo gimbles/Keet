@@ -1,18 +1,31 @@
 #!/usr/bin/env ruby
 
+# Handling configuration.
 begin
   config = File.open('KeetConf').read
 rescue StandardError => _e
-  puts 'No KeetConf file found.'
+  puts 'No KeetConf file found!'
   exit 1
 end
 
 eval(config)
 
 if defined? GREET && defined? COMMANDS
-  puts "\e[102;30m OK! \e[0m Loaded configuration."
+  puts "\e[102;30m OK! \e[0m Loaded configuration!"
 else
-  puts "Invalid configuration."
+  puts "Invalid configuration!"
+end
+
+# Cleanly exiting on a SIGINT (Ctrl + C)
+trap "SIGINT" do
+  puts "\n\n\e[41m SIGINT \e[0m - Goodbye! 👋"
+
+  # Optional function that may exist in the configuration.
+  if defined? ON_SIGINT
+    ON_SIGINT()
+  end
+
+  exit 130
 end
 
 CMDS = COMMANDS.transform_keys(&:downcase)
@@ -27,13 +40,22 @@ def execute_profile(profile)
 
       if /#{os}/.match(platform)
         CMDS[profile][os].each do |cmd|
-          puts "=> #{cmd}\n"
-          begin
-            system(cmd, exception: true)
-          rescue StandardError => e
-            e.message['Command failed'] = "\e[41m COMMAND FAILED \e[0m"
-            puts "\n#{e.message}"
-            exit 1
+          if cmd.class == Hash
+            puts "=> #{cmd.command}\n"
+            begin
+              system(cmd, exception: true)
+            rescue StandardError => e
+              puts "Command failed; Ignoring..."
+            end
+          else
+            puts "=> #{cmd}\n"
+            begin
+              system(cmd, exception: true)
+            rescue StandardError => e
+              e.message['Command failed'] = "\e[41m COMMAND FAILED \e[0m"
+              puts "\n#{e.message}"
+              exit 1
+            end
           end
         end
       end
@@ -51,12 +73,19 @@ if ARGV.length == 0
 
   longest = PROFILES.max_by(&:length).length + 2
   PROFILES.each_with_index do |profile, index|
+    # Calculate the amount of spaces to pad.
     puts "#{index} -> #{profile}#{" " * (longest - profile.length)}=> #{CMDS[profile]["description"]}"
   end
 
   print "\nProfile -> "
-  profile = gets.strip
-
+  
+  begin
+    profile = gets.strip
+  rescue
+    puts "\n\e[41m ERR! \e[0m - Failed to get user input."
+    exit
+  end
+  
   if /([A-Z])\w+/.match(profile) != ""
     profile = PROFILES[profile.to_i].downcase
     puts "Executing #{profile} profile..."
@@ -68,10 +97,4 @@ if ARGV.length == 0
   end
 else
   execute_profile ARGV[0]
-end
-
-
-trap "SIGINT" do
-  puts "Exiting"
-  exit 130
 end
