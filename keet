@@ -1,29 +1,31 @@
 #!/usr/bin/env ruby
 
 begin
-  config = File.open("KeetConf").read
-rescue
-  puts "No KeetConf file found."
+  config = File.open('KeetConf').read
+rescue StandardError => _e
+  puts 'No KeetConf file found.'
   exit 1
 end
 
 eval(config)
 
+commands = COMMANDS.transform_keys(&:downcase)
+
 def execute_profile(profile)
   platform = `uname -s`.strip
-  profiles = COMMANDS.keys
-  commands = COMMANDS.map { |key, value| [key.downcase, value] }
+  profiles = commands.keys
 
   if profiles.include? profile
-    COMMANDS[profile].keys.each do |os|
-      next if os == "description"
+    commands[profile].keys.keys_each do |os|
+      next if os == 'description'
+
       if /#{os}/.match(platform)
-        COMMANDS[profile][os].each do |cmd|
+        commands[profile][os].each do |cmd|
           puts "=> #{cmd}\n"
           begin
             system(cmd, exception: true)
-          rescue Exception => e
-            e.message["Command failed"] = "\e[41m COMMAND FAILED \e[0m"
+          rescue StandardError => e
+            e.message['Command failed'] = "\e[41m COMMAND FAILED \e[0m"
             puts "\n#{e.message}"
             exit 1
           end
@@ -31,21 +33,22 @@ def execute_profile(profile)
       end
     end
   else
-    puts "Invalid profile..."
+    puts 'Invalid profile...'
   end
 end
 
 if ARGV.length == 0
-  commands = COMMANDS.map { |key, value| [key.downcase, value] }
-  PROFILES = COMMANDS.keys
+  PROFILES = commands.keys
 
   puts GREET
-  puts "What profile would you like to use?\n\n"
+  puts 'What profile would you like to use?\n\n'
+
+  longest = PROFILES.max_by(&:length).length + 2
   PROFILES.each_with_index do |profile, index|
-    puts "#{index} -> #{profile}"
+    puts "#{index} -> #{profile}#{" " * (longest - profile.length)}=> #{commands[profile]["description"]}"
   end
 
-  print "\nProfile -> "
+  print '\nProfile -> '
   profile = gets.strip
 
   if /([A-Z])\w+/.match(profile) != ""
