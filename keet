@@ -10,23 +10,25 @@ end
 eval(config)
 
 def execute_profile(profile)
-  os = `uname -s`.strip
-  profiles = PROFILES.map(&:downcase)
+  platform = `uname -s`.strip
+  profiles = COMMANDS.keys
   commands = COMMANDS.map { |key, value| [key.downcase, value] }
 
   if profiles.include? profile
-    if COMMANDS[profile].has_key? os
-      COMMANDS[profile][os].each do |command|
-        puts "\n=> #{command}"
-        begin
-          cmd = system(command, exception: true)
-        rescue Exception => e
-          puts "\n\e[41m COMMAND FAILED \e[0m -> '#{e.message}'"
-          exit 1
+    COMMANDS[profile].keys.each do |os|
+      next if os == "description"
+      if /#{os}/.match(platform)
+        COMMANDS[profile][os].each do |cmd|
+          puts "=> #{cmd}\n"
+          begin
+            system(cmd, exception: true)
+          rescue Exception => e
+            e.message["Command failed"] = "\e[41m COMMAND FAILED \e[0m"
+            puts "\n#{e.message}"
+            exit 1
+          end
         end
       end
-    else
-      puts "Unsupported platform"
     end
   else
     puts "Invalid profile..."
@@ -34,6 +36,9 @@ def execute_profile(profile)
 end
 
 if ARGV.length == 0
+  commands = COMMANDS.map { |key, value| [key.downcase, value] }
+  PROFILES = COMMANDS.keys
+
   puts GREET
   puts "What profile would you like to use?\n\n"
   PROFILES.each_with_index do |profile, index|
