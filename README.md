@@ -67,10 +67,8 @@ COMMANDS = {
 ## But what do these variables mean?
 
 The `GREET` variable is is the welcome message. This line is the first line that is printed by the build system.               
-       
-The `PROFILES` variable defines the list of your different profiles.       
-      
-The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary.       
+        
+The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary. Each profile holds a description and different operating systems. The operating system is fetched from `uname -s`. You may use regex as shown above in the example. Each operating system holds a list of commands to run.
 
 ## Coolio, where do I store this configuration?
 The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as parakeet.
