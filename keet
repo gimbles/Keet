@@ -9,7 +9,7 @@ end
 
 eval(config)
 
-if defined? GREET == nil || !defined? COMMANDS == nil
+if defined? GREET == nil || defined? COMMANDS == nil
   puts "Invalid configuration."
   exit 1
 end
