@@ -2,7 +2,7 @@
 ✨ A minimal, tiny and easy to use build system for Unix-like OSs made with <3 and Ruby!
 
 # Lovely! How do I add it to my project?
-Using parakeet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added parakeet to your project :)      
+Using Keet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added parakeet to your project :)      
       
 Here's a handy command to install it in your project! - `wget https://raw.githubusercontent.com/Yush08/Keet/main/keet` 
 
@@ -11,29 +11,58 @@ Configuring Keet doesn't require any knowledge of the Ruby language, even though
 
 ```ruby
 GREET = "Welcome to the Zen build system"
-PROFILES = ["Debug", "Performance", "Production", "Format", "Clean"]
+
 COMMANDS = {
-  "debug" => {
-    "Darwin" => ["cargo build"],
-    "Linux" => ["cargo build"],
+  "r" => {
+    "description" => "Debug run.",
+    "Darwin|Linux" => ["cargo run"],
   },
-  "performance" => {
-    "Darwin" => ["cargo build --release"],
-    "Linux" => ["cargo build --release"],
+
+  "rr" => {
+    "description" => "Release run.",
+    "Darwin|Linux" => ["cargo run --release"],
   },
-  "production" => {
-    "Darwin" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target aarch64-apple-darwin --release"],
-    "Linux" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu --release"],
+
+  "b" => {
+    "description" => "Debug build.",
+    "Darwin|Linux" => ["cargo build"],
   },
-  "format" => {
-    "Darwin" => ["cargo fmt"],
-    "Linux" => ["cargo fmt"],
+
+  "rb" => {
+    "description" => "Release build.",
+    "Darwin|Linux" => ["cargo build --release"],
   },
-  "clean" => {
-    "Darwin" => ["cargo clean"],
-    "Linux" => ["cargo clean"],
+
+  "prod" => {
+    "description" => "Production build.",
+    "Darwin" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target aarch64-apple-darwin --release",
+                 "strip target/aarch64-apple-darwin/release/zen"],
+
+    "Linux" => ["cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-unknown-linux-gnu --release",
+                "strip target/x86_64-unknown-linux-gnu/release/zen"],
+  },
+
+  "fmt" => {
+    "description" => "Format code.",
+    "Darwin|Linux" => ["cargo fmt"],
+  },
+
+  "cls" => {
+    "description" => "Clean workspace.",
+    "Darwin|Linux" => ["cargo clean"],
+  },
+
+  "chk" => {
+    "description" => "Check code for errors.",
+    "Darwin|Linux" => ["cargo check"],
+  },
+
+  "clp" => {
+    "description" => "Linter.",
+    "Darwin|Linux" => ["cargo clippy"],
   },
 }
+
 ```
 ## But what do these variables mean?
 
