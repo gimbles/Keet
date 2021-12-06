@@ -73,7 +73,7 @@ The `COMMANDS` variable defines what commands the build system should run when t
 ## Coolio, where do I store this configuration?
 The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as parakeet.
 
-## Fantastic, but what if I want a fancy configuration that can't just be fit like this?
+## Neat! But what if I have a *really* fancy config?
 Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Parakeet will simply evaluate the file and you can use all the fancy Ruby code you want.
 ___
 
