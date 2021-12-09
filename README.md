@@ -3,7 +3,7 @@
 ✨ A minimal, tiny and easy to use build system for Unix-like OSs made with <3 and Ruby!
 
 # Installation
-Using Keet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added parakeet to your project :)      
+Using Keet is really simple, you just clone the file and chuck it in your projects root folder, it's design is minimal and straight to the point. You simply add your profiles and commands to the script and.. congrats! You have now successfully added keet to your project :)      
       
 Here's a handy command to install it in your project! - 
 ```sh
