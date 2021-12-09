@@ -73,7 +73,7 @@ The `GREET` variable is is the welcome message. This line is the first line that
         
 The `COMMANDS` variable defines what commands the build system should run when the user requests a profile. It's a HashMap, also known as a dictionary. Each profile holds a description and different operating systems. The operating system is fetched from `uname -s`. You may use regex as shown above in the example. Each operating system holds a list of commands to run.     
      
-The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as parakeet.
+The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as Keet.
 
 ## Fancy configuration
 Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Parakeet will simply evaluate the file and you can use all the fancy Ruby code you want.
