@@ -76,7 +76,7 @@ The `COMMANDS` variable defines what commands the build system should run when t
 The build system will look for a "KeetConf" file storing this configuration and evaluate it accordingly. Place this file in the same position as Keet.
 
 ## Fancy configuration
-Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Parakeet will simply evaluate the file and you can use all the fancy Ruby code you want.
+Fear not my friend! The configuration is *comlpetely* turing complete as it is just Ruby code in the end! Keet will simply evaluate the file and you can use all the fancy Ruby code you want.
 ___
 
 # License
