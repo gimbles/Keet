@@ -7,7 +7,7 @@ Using Keet is really simple, you just clone the file and chuck it in your projec
       
 Here's a handy command to install it in your project! - 
 ```sh
-wget https://git.io/AddKeet -o keet
+wget https://git.io/AddKeet -O keet
 ``` 
 
 # Configuration
